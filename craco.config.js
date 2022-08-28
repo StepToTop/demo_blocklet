@@ -21,7 +21,15 @@ const webpackConfig = whenDev
         },
       },
     }
-  : {};
+  : {
+      configure: {
+        resolve: {
+          alias: {
+            '@': path.resolve(__dirname, './src'),
+          },
+        },
+      },
+    };
 
 module.exports = {
   webpack: {

@@ -3,11 +3,11 @@ const axios = require('axios');
 module.exports = {
   async getTxList(req, res) {
     const ret = await axios({
-      proxy: {
-        protocol: 'http',
-        host: '192.168.99.133',
-        port: 7890,
-      },
+      // proxy: {
+      //   protocol: 'http',
+      //   host: '192.168.99.133',
+      //   port: 7890,
+      // },
       method: 'get',
       url: `https://api.etherscan.io/api?module=account&action=txlist&address=${
         req?.query?.address || ''
