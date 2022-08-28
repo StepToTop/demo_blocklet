@@ -33,12 +33,15 @@ const columns = [
   {
     title: 'Value',
     dataIndex: 'value',
+    render: (value) => {
+      return Number(value) / 10 ** 18;
+    },
   },
   {
     title: 'TxFee',
     dataIndex: 'gasPrice',
     render: (gasPrice, record) => {
-      return Number(gasPrice) * Number(record.gasUsed);
+      return ((Number(gasPrice) * Number(record.gasUsed)) / 10 ** 18).toFixed(8);
     },
   },
 ];
@@ -58,9 +61,9 @@ function Home() {
         page,
         pageSize,
       });
-      if (ret.error) {
+      if (!ret || ret.error) {
         setTxData([]);
-        throw new Error(ret.message);
+        throw new Error(ret?.message || '没有内容');
       } else if (ret.data.length < 1) {
         setPage(page - 1);
         throw new Error('当前是最后一页了！');
@@ -89,8 +92,9 @@ function Home() {
           onSelect={(key) => console.error(key)}
           footer={
             <Space>
-              <Input value={address} onChange={setAddress} />
+              <Input id="searchAddress" value={address} onChange={setAddress} />
               <Button
+                id="searchButton"
                 loading={loading}
                 theme="solid"
                 onClick={() => {

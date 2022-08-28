@@ -22,6 +22,12 @@ module.exports = {
         message: '网络异常！',
       });
     }
+    if (!Array.isArray(ret.data?.result)) {
+      return res.json({
+        error: 1,
+        message: ret.data.result || '请求异常',
+      });
+    }
     return res.json({
       error: 0,
       data: ret.data?.result || [],
