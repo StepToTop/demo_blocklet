@@ -1,6 +1,9 @@
 const middleware = require('@blocklet/sdk/lib/middlewares');
-const router = require('express').Router();
+const express = require('express');
+const appController = require('../app/platform-api');
 
-router.use('/user', middleware.user(), (req, res) => res.json(req.user || {}));
+const router = express.Router();
+
+router.use('/', middleware.user(), express.Router().get('/tsx', appController.getTxList));
 
 module.exports = router;
