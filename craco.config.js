@@ -1,4 +1,5 @@
 require('dotenv-flow').config();
+const path = require('path');
 
 const port = process.env.BLOCKLET_PORT || process.env.PORT || 3000;
 const apiPort = process.env.API_PORT || 3030;
@@ -12,6 +13,11 @@ const webpackConfig = whenDev
       configure: {
         output: {
           publicPath: '', // When the dev mode as component, this line required
+        },
+        resolve: {
+          alias: {
+            '@': path.resolve(__dirname, './src'),
+          },
         },
       },
     }
